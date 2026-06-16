@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { Env, EnvVarError } from "./index.js";
+import { Env, EnvVarInvalidError, EnvVarMissingError } from "./index.js";
 
 const TEST_KEY = "NODE_ENV_TEST_VAR";
 
@@ -38,9 +38,9 @@ describe("Env", () => {
     });
 
     it("throws when missing or empty", () => {
-      expect(() => env.requireStr(TEST_KEY)).toThrow(EnvVarError);
+      expect(() => env.requireStr(TEST_KEY)).toThrow(EnvVarMissingError);
       process.env[TEST_KEY] = "";
-      expect(() => env.requireStr(TEST_KEY)).toThrow(EnvVarError);
+      expect(() => env.requireStr(TEST_KEY)).toThrow(EnvVarMissingError);
     });
   });
 
@@ -63,10 +63,13 @@ describe("Env", () => {
       expect(env.requireInt(TEST_KEY)).toBe(42);
     });
 
-    it("throws when missing or invalid", () => {
-      expect(() => env.requireInt(TEST_KEY)).toThrow(EnvVarError);
+    it("throws when missing", () => {
+      expect(() => env.requireInt(TEST_KEY)).toThrow(EnvVarMissingError);
+    });
+
+    it("throws when invalid", () => {
       process.env[TEST_KEY] = "abc";
-      expect(() => env.requireInt(TEST_KEY)).toThrow(EnvVarError);
+      expect(() => env.requireInt(TEST_KEY)).toThrow(EnvVarInvalidError);
     });
   });
 
@@ -89,10 +92,13 @@ describe("Env", () => {
       expect(env.requireFloat(TEST_KEY)).toBe(3.14);
     });
 
-    it("throws when missing or invalid", () => {
-      expect(() => env.requireFloat(TEST_KEY)).toThrow(EnvVarError);
+    it("throws when missing", () => {
+      expect(() => env.requireFloat(TEST_KEY)).toThrow(EnvVarMissingError);
+    });
+
+    it("throws when invalid", () => {
       process.env[TEST_KEY] = "abc";
-      expect(() => env.requireFloat(TEST_KEY)).toThrow(EnvVarError);
+      expect(() => env.requireFloat(TEST_KEY)).toThrow(EnvVarInvalidError);
     });
   });
 
@@ -125,10 +131,13 @@ describe("Env", () => {
       expect(env.requireBool(TEST_KEY)).toBe(true);
     });
 
-    it("throws when missing or invalid", () => {
-      expect(() => env.requireBool(TEST_KEY)).toThrow(EnvVarError);
+    it("throws when missing", () => {
+      expect(() => env.requireBool(TEST_KEY)).toThrow(EnvVarMissingError);
+    });
+
+    it("throws when invalid", () => {
       process.env[TEST_KEY] = "maybe";
-      expect(() => env.requireBool(TEST_KEY)).toThrow(EnvVarError);
+      expect(() => env.requireBool(TEST_KEY)).toThrow(EnvVarInvalidError);
     });
   });
 
@@ -150,7 +159,7 @@ describe("Env", () => {
     });
 
     it("throws when missing", () => {
-      expect(() => env.requireCsvString(TEST_KEY)).toThrow(EnvVarError);
+      expect(() => env.requireCsvString(TEST_KEY)).toThrow(EnvVarMissingError);
     });
   });
 

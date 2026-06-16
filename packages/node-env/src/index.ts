@@ -1,7 +1,14 @@
-export class EnvVarError extends Error {
+export class EnvVarMissingError extends Error {
+  constructor(key: string) {
+    super(`Environment variable "${key}" is required`);
+    this.name = "EnvVarMissingError";
+  }
+}
+
+export class EnvVarInvalidError extends Error {
   constructor(key: string, reason: string) {
-    super(`Environment variable "${key}": ${reason}`);
-    this.name = "EnvVarError";
+    super(`Environment variable "${key}" is invalid: ${reason}`);
+    this.name = "EnvVarInvalidError";
   }
 }
 
@@ -72,7 +79,7 @@ export class Env<TKey extends string = string> {
   requireStr(key: TKey): string {
     const value = readRaw(key);
     if (value === undefined) {
-      throw new EnvVarError(key, "is required");
+      throw new EnvVarMissingError(key);
     }
     return value;
   }
@@ -101,11 +108,11 @@ export class Env<TKey extends string = string> {
   requireInt(key: TKey): number {
     const raw = readRaw(key);
     if (raw === undefined) {
-      throw new EnvVarError(key, "is required");
+      throw new EnvVarMissingError(key);
     }
     const value = parseIntValue(raw);
     if (value === undefined) {
-      throw new EnvVarError(key, "must be a valid integer");
+      throw new EnvVarInvalidError(key, "must be a valid integer");
     }
     return value;
   }
@@ -134,11 +141,11 @@ export class Env<TKey extends string = string> {
   requireFloat(key: TKey): number {
     const raw = readRaw(key);
     if (raw === undefined) {
-      throw new EnvVarError(key, "is required");
+      throw new EnvVarMissingError(key);
     }
     const value = parseFloatValue(raw);
     if (value === undefined) {
-      throw new EnvVarError(key, "must be a valid number");
+      throw new EnvVarInvalidError(key, "must be a valid number");
     }
     return value;
   }
@@ -167,11 +174,11 @@ export class Env<TKey extends string = string> {
   requireBool(key: TKey): boolean {
     const raw = readRaw(key);
     if (raw === undefined) {
-      throw new EnvVarError(key, "is required");
+      throw new EnvVarMissingError(key);
     }
     const value = parseBool(raw);
     if (value === undefined) {
-      throw new EnvVarError(key, "must be a valid boolean");
+      throw new EnvVarInvalidError(key, "must be a valid boolean");
     }
     return value;
   }
@@ -194,7 +201,7 @@ export class Env<TKey extends string = string> {
   requireCsvString(key: TKey): string[] {
     const raw = readRaw(key);
     if (raw === undefined) {
-      throw new EnvVarError(key, "is required");
+      throw new EnvVarMissingError(key);
     }
     return parseCsvString(raw);
   }

@@ -43,5 +43,5 @@ Each has a `requireX` variant that throws if missing/empty/invalid:
 - `requireBool(key)`
 - `requireCsvString(key)`
 
-Errors are thrown as `EnvVarError`.
+Errors are thrown as `EnvVarMissingError` (missing/empty) or `EnvVarInvalidError` (present but invalid).
 
