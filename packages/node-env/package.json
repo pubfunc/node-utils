@@ -1,6 +1,6 @@
 {
   "name": "@pubfunc/node-env",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Type-safe process.env wrapper",
   "type": "module",
   "main": "./dist/index.js",
