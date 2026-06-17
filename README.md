@@ -60,10 +60,13 @@ pnpm version-packages
 
 ### Publish
 
-Builds and publishes any packages with unpublished versions:
+CI publishes via **npm trusted publishing (OIDC)** — no `NPM_TOKEN` required. Each package must have a trusted publisher configured on npmjs.com pointing at this repo and `release.yml`.
+
+Locally, build and publish with npm (after `npm login`):
 
 ```bash
-pnpm release
+pnpm build
+bash scripts/ci-publish.sh
 ```
 
 ## Adding a new package
