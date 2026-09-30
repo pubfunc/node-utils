@@ -29,7 +29,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": true
+    "provenance": false
   },
   "engines": {
     "node": ">=18"
