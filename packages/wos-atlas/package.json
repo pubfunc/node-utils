@@ -1,6 +1,6 @@
 {
   "name": "@pubfunc/wos-atlas",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Typed fetch-based SDK for the Whiteout Survival Atlas API",
   "repository": {
     "type": "git",
