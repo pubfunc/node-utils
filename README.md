@@ -5,6 +5,7 @@ Monorepo of small utility libraries published to npm under the `@pubfunc/*` scop
 ## Packages
 
 - [`@pubfunc/node-env`](./packages/node-env): Type-safe `process.env` wrapper (`Env<TKey>`).
+- [`@pubfunc/wos-atlas`](./packages/wos-atlas): Typed fetch-based SDK for the Whiteout Survival Atlas API.
 
 ## Development
 
