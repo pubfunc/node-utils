@@ -75,4 +75,3 @@ bash scripts/ci-publish.sh
 2. Name it `@pubfunc/<name>` in its `package.json`
 3. Add build/test scripts (follow the existing `packages/node-env` template)
 4. Add it to the **Packages** list above
-
